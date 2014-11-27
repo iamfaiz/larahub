@@ -3,6 +3,15 @@
 @section('content')
 	<div class="row">
 		<div class="col-md-6">
+			@if (Session::has('messages'))
+				<div class="alert alert-danger">
+					<ul>
+						@foreach (Session::get('messages')->all() as $message)
+							<li>{{ $message }}</li>
+						@endforeach
+					</ul>
+				</div>
+			@endif
 			{{ Form::open([ 'route' => 'register_path' ]) }}
 				<div class="form-group">
 					<label for="username">Username:</label>

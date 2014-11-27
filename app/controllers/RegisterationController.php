@@ -18,10 +18,24 @@ class RegisterationController extends \BaseController {
 	 */
 	public function store()
 	{
-		User::create(
-			Input::only('username', 'email', 'password')
-		);
-		return Redirect::home();
+		$validator = Validator::make(Input::only('username', 'email', 'password'), [
+			"username" => 'required|min:5|unique:users',
+			"email"    => 'required|email|min:5|unique:users',
+			"password" => 'required|min:5',
+		]);
+
+		if ($validator->fails())
+		{
+			$messages = $validator->messages();
+			return Redirect::route('Register')->with('messages', $messages);
+		} else {
+			User::create([
+				'username' => Input::get('username'),
+				'password' => Hash::make(Input::get('password')),
+				'email'    => Input::get('email')
+			]);
+			return Redirect::home();
+		}
 	}
 
 }
