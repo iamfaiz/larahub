@@ -3,7 +3,7 @@
 /**
 * User Related Stuff here
 */
-class RegisterValidation
+class RegisterValidation implements ValidationInterface
 {
 
 	public function validate(array $data)
