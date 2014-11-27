@@ -1,6 +1,19 @@
 <?php
-
+use Larahub\Users\UserRepository;
+use Larahub\Validations\RegisterValidation;
 class RegisterationController extends \BaseController {
+
+	/**
+	 * User Repository instance
+	 * @var Object
+	 */
+	protected $userRepository;
+
+	public function __construct(UserRepository $userRepository, RegisterValidation $registerValidation)
+	{
+		$this->userRepository 		= $userRepository;
+		$this->registerValidation 	= $registerValidation;
+	}
 
 	/**
 	 * Show the registeration form.
@@ -18,22 +31,13 @@ class RegisterationController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make(Input::only('username', 'email', 'password'), [
-			"username" => 'required|min:5|unique:users',
-			"email"    => 'required|email|min:5|unique:users',
-			"password" => 'required|min:5',
-		]);
-
+		$validator = $this->registerValidation->validate(Input::only('username', 'email', 'password'));
 		if ($validator->fails())
 		{
 			$messages = $validator->messages();
 			return Redirect::route('Register')->with('messages', $messages);
 		} else {
-			User::create([
-				'username' => Input::get('username'),
-				'password' => Hash::make(Input::get('password')),
-				'email'    => Input::get('email')
-			]);
+			$this->userRepository->register(Input::only('username', 'email', 'password'));
 			return Redirect::home();
 		}
 	}
