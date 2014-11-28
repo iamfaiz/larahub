@@ -38,7 +38,7 @@ class RegisterationController extends \BaseController {
 			return Redirect::route('Register')->with('messages', $messages);
 		} else {
 			$this->userRepository->register(Input::only('username', 'email', 'password'));
-			return Redirect::home();
+			return Redirect::home()->with('registerationSuccess', 'You have successfully signed up. You may now login!');
 		}
 	}
 

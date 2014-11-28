@@ -1,6 +1,11 @@
 @extends('layouts.default')
 
 @section('content')
+	@if(Session::has('registerationSuccess'))
+		<div class="alert alert-success">
+			{{ Session::get('registerationSuccess') }}
+		</div>
+	@endif
 	<div class="jumbotron">
 		<div class="container">
 			<h1>Welcome to Larahub</h1>

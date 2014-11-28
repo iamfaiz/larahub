@@ -29,4 +29,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $hidden = array('password', 'remember_token');
 
+	/**
+	 * The primary key for the users table
+	 * @var string
+	 */
+	protected $primaryKey = "id";
+
 }
