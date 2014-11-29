@@ -40,3 +40,9 @@ Route::get('/statuses', [
 	'uses' => 'StatusController@index',
 	'before' => 'passwordProtected'
 ]);
+
+Route::post('/statuses', [
+	'as' => 'post_status',
+	'uses' => 'StatusController@create',
+	'before' => 'passwordProtected'
+]);
