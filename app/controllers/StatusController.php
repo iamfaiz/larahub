@@ -9,7 +9,7 @@ class StatusController extends \BaseController {
 	 */
 	public function index()
 	{
-		return 'Statueses';
+		return View::make('statuses.index');
 	}
 
 }
