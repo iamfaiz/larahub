@@ -7,6 +7,10 @@ class PagesController extends \BaseController {
 	 */
 	public function home()
 	{
+		if (Auth::check())
+		{
+			return Redirect::route('statuses');
+		}
 		return View::make('pages.home');
 	}
 }

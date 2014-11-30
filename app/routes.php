@@ -7,6 +7,16 @@ Route::get('/', [
 
 
 // Users Routes
+
+Route::get('/users', [
+	'as' => 'Users',
+	'uses' => 'UserController@index'
+]);
+
+Route::get('/user/{id}', [
+	'uses' => 'UserController@show'
+]);
+
 Route::get('/register', [
 	'as' => 'Register',
 	'uses' => 'RegisterationController@create'

@@ -1,9 +1,27 @@
 <?php
 
 class UserController extends \BaseController {
+
+	public function index()
+	{
+		$users = User::orderBy('id', 'desc')->get();
+		return View::make('users.index')->with('users', $users);
+	}
+
+	public function show($id)
+	{
+		if (User::find($id))
+		{
+			$user = User::find($id);
+			return View::make('users.show')->with('user', $user);
+		} else {
+			return Redirect::route('Users');
+		}
+	}
+
 	public function getLogin()
 	{
-		return View::make('user.login');
+		return View::make('users.login');
 	}
 	public function postLogin()
 	{

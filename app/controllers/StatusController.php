@@ -9,7 +9,7 @@ class StatusController extends \BaseController {
 	 */
 	public function index()
 	{
-		$statuses = Status::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
+		$statuses = Status::with('User')->where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
 		return View::make('statuses.index')->with('statuses', $statuses);
 	}
 
