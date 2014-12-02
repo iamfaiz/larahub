@@ -56,3 +56,19 @@ Route::post('/statuses', [
 	'uses' => 'StatusController@create',
 	'before' => 'passwordProtected'
 ]);
+
+
+// Following users
+
+Route::get('/follow/{userId}', [
+	'as' => 'FollowUser',
+	'uses' => 'FollowsController@store',
+	'before' => 'passwordProtected'
+]);
+
+
+// for debugging
+
+Route::get('/debug', function(){
+	return User::getFollows(Auth::user()->id);
+});

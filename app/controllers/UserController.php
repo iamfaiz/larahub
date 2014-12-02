@@ -13,7 +13,10 @@ class UserController extends \BaseController {
 		if (User::find($id))
 		{
 			$user = User::find($id);
-			return View::make('users.show')->with('user', $user);
+			$currentUserHadFollowed = Follow::currentUserHadFollowed($id);
+			return View::make('users.show')
+				->with('user', $user)
+				->with('currentUserHadFollowed', $currentUserHadFollowed);
 		} else {
 			return Redirect::route('Users');
 		}
@@ -32,7 +35,7 @@ class UserController extends \BaseController {
 			return 'Authentication failed!';
 		}
 	}
-
+	
 	public function logout()
 	{
 		Auth::logout();

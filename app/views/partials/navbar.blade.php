@@ -13,15 +13,8 @@
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse navbar-ex1-collapse">
 		<ul class="nav navbar-nav">
-			<li class="active"><a href="#">Link</a></li>
-			<li><a href="#">Link</a></li>
+			<li>{{ link_to_route('Users', 'Browse Users') }}</li>
 		</ul>
-		<form class="navbar-form navbar-left" role="search">
-			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search">
-			</div>
-			<button type="submit" class="btn btn-default">Submit</button>
-		</form>
 		<ul class="nav navbar-nav navbar-right">
 			@if(Auth::check())
 				<li class="dropdown">

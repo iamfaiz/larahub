@@ -35,4 +35,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $primaryKey = "id";
 
+	/**
+	 * Get the users that one has followed
+	 */
+	public static function getFollows($userId)
+	{
+		return Follow::where('userId', $userId)->get(['followedId']);
+	}
+
 }

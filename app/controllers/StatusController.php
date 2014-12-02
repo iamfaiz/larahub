@@ -3,13 +3,20 @@
 class StatusController extends \BaseController {
 
 	/**
-	 * Display a listing of statueses.
+	 * Display a listing of statuses.
 	 *
 	 * @return Response
 	 */
 	public function index()
 	{
-		$statuses = Status::with('User')->where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
+		$statuses = Status::ofUser(Auth::user()->id);
+		foreach(User::getFollows(Auth::user()->id) as $followedUser)
+		{
+			if (sizeof(Status::ofUser($followedUser->followedId)) !== 0)
+			{
+				$statuses[] = Status::ofUser($followedUser->followedId)[0];
+			}
+		}
 		return View::make('statuses.index')->with('statuses', $statuses);
 	}
 
