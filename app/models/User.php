@@ -58,7 +58,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		{
 		    return strcmp($a->updated_at, $b->updated_at);
 		});
-		return array_reverset ($arrayStatus);
+		return array_reverse($arrayStatus);
 	}
 
 	public static function convertToArray($data)
