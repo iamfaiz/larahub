@@ -43,4 +43,30 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return Follow::where('userId', $userId)->get(['followedId']);
 	}
 
+	public static function getFeedForAuthUser()
+	{
+		$statuses = Status::ofUser(Auth::user()->id);
+		foreach(User::getFollows(Auth::user()->id) as $followedUser)
+		{
+			if (sizeof(Status::ofUser($followedUser->followedId)) !== 0)
+			{
+				$statuses[] = Status::ofUser($followedUser->followedId)[0];
+			}
+		}
+		$arrayStatus = self::convertToArray($statuses);
+		usort($arrayStatus, function($a, $b)
+		{
+		    return strcmp($a->updated_at, $b->updated_at);
+		});
+		return array_reverse($arrayStatus);
+	}
+
+	public static function convertToArray($data)
+	{
+	    $output = array();
+	    foreach ($data as $item)
+	        $output[] = $item;
+	    return $output;
+	}
+
 }

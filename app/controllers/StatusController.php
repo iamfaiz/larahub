@@ -9,14 +9,7 @@ class StatusController extends \BaseController {
 	 */
 	public function index()
 	{
-		$statuses = Status::ofUser(Auth::user()->id);
-		foreach(User::getFollows(Auth::user()->id) as $followedUser)
-		{
-			if (sizeof(Status::ofUser($followedUser->followedId)) !== 0)
-			{
-				$statuses[] = Status::ofUser($followedUser->followedId)[0];
-			}
-		}
+		$statuses = User::getFeedForAuthUser();
 		return View::make('statuses.index')->with('statuses', $statuses);
 	}
 
